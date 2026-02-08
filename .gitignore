@@ -6,9 +6,6 @@ frontend/temp_extract/
 frontend/src/config.js~
 venv/
 
-
-
-
 # Terraform files to ignore
 infrastructure/.terraform/
 infrastructure/terraform.tfstate
