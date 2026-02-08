@@ -45,7 +45,6 @@ All resources are provisioned and managed using Terraform, enabling repeatable, 
 ---
 ## Prerequisites
 
-
 Ensure the following tools and accounts are available:
 -Terraform >= 1.5.0
 -AWS CLI (configured with valid credentials)
@@ -132,6 +131,7 @@ Confirm Infrastructure Login to AWS console to confirm all the resources created
 ---
 ## Docker Setup
 
+Docker Prerequisites
 - Docker >= 25.0.13
 - FROM python:3.9
 - Git
