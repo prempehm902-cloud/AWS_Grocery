@@ -4,14 +4,30 @@
 
 AWS Grocery is a cloud-based application deployed on AWS. It features a fully managed and scalable infrastructure, including an EC2 instance, PostgreSQL RDS database, and an S3 bucket for storing user avatars. The application is containerized using Docker, ensuring consistent deployment across environments. A secure network setup is implemented using a VPC, subnets, security groups, and an internet gateway. Terraform is used for automated provisioning and management of all infrastructure components, enabling version-controlled, repeatable deployments.
 
+##The infrastructure includes:
+
+-EC2 for application hosting
+-Amazon RDS (PostgreSQL) for persistent data storage
+-Amazon S3 for user avatar storage
+-Docker for application containerization
+-VPC, subnets, security groups, and an Internet Gateway for secure networking
+
+All resources are provisioned and managed using Terraform, enabling repeatable, version-controlled deployments across environments.
+
 ---
 ## Architecture Diagram
 
 [![Infrastructure](https://github.com/user-attachments/assets/304eabfd-3cb9-4876-8f4d-30ca4071edf2)](https://github.com/prempehm902-cloud/AWS_Grocery/tree/main/infrastructure)
 
-## Infrastructure
+## Infrastructure diagram Includes:
 
-*Diagram shows the VPC, subnets, IGW, EC2, RDS, and S3 bucket.*
+-Virtual Private Cloud (VPC)
+-Public subnets
+-Internet Gateway (IGW)
+-EC2 instance
+-RDS PostgreSQL database
+-S3 bucket for avatars
+
 
 ## Table of Contents
 
@@ -30,10 +46,12 @@ AWS Grocery is a cloud-based application deployed on AWS. It features a fully ma
 ## Prerequisites
 
 
-- Terraform >= 1.5.0
-- AWS CLI configured with access credentials
-- Git
-- AWS account
+Ensure the following tools and accounts are available:
+-Terraform >= 1.5.0
+-AWS CLI (configured with valid credentials)
+-Git
+-Docker >= 25.0.13
+-An active AWS account
 
 ---
 ## Terraform Setup
@@ -143,6 +161,14 @@ Confirm Infrastructure Login to AWS console to confirm all the resources created
    docker run --network host -e S3_BUCKET_NAME=grocerymate-avatars-premps -e S3_REGION=eu-central-1  -e USE_S3_STORAGE=true grocery mate
 
 
-6. Finally, once the infrastructure is deployed and the application is running, you can access the AWS Grocery application via your web     browser using the EC2 public IP address and exposed port:
+6. Finally, Once the application is running, open your web browser and navigate to URL:
 
-   http://18.196.156.153:5000
+   - Local development (Docker running locally):
+     http://localhost:5000
+     
+   - AWS deployment (EC2 instance):
+     http://<EC2_PUBLIC_IP>:5000
+
+7. Example:
+   
+      http://18.196.156.153:5000
