@@ -213,14 +213,14 @@ resource "aws_sns_topic_subscription" "topic_email_subscription" {
 
 # CloudWatch Alarm for EC2
 resource "aws_cloudwatch_metric_alarm" "my_watch" {
-  alarm_name                = "terraform-test-my_watch5"
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = 2
+  alarm_name                = "GroceryAlarm"
+  comparison_operator       = "GreaterThanThreshold"
+  evaluation_periods        = 1
   metric_name               = "CPUUtilization"
   namespace                 = "AWS/EC2"
-  period                    = 120
+  period                    = 300  # 5 minutes in seconds
   statistic                 = "Average"
-  threshold                 = 80
+  threshold                 = 95
   alarm_description         = "This metric monitors ec2 cpu utilization"
   insufficient_data_actions = []
   alarm_actions             = [aws_sns_topic.topic.arn]
