@@ -6,11 +6,11 @@ AWS Grocery is a cloud-based application deployed on AWS. It features a fully ma
 
 ##The infrastructure includes:
 
--EC2 for application hosting
--Amazon RDS (PostgreSQL) for persistent data storage
--Amazon S3 for user avatar storage
--Docker for application containerization
--VPC, subnets, security groups, and an Internet Gateway for secure networking
+- EC2 for application hosting
+- Amazon RDS (PostgreSQL) for persistent data storage
+- Amazon S3 for user avatar storage
+- Docker for application containerization
+- VPC, subnets, security groups, and an Internet Gateway for secure networking
 
 All resources are provisioned and managed using Terraform, enabling repeatable, version-controlled deployments across environments.
 
@@ -22,12 +22,13 @@ All resources are provisioned and managed using Terraform, enabling repeatable, 
 
 ## Infrastructure diagram Includes:
 
--Virtual Private Cloud (VPC)
--Public subnets
--Internet Gateway (IGW)
--EC2 instance
--RDS PostgreSQL database
--S3 bucket for avatars
+- Virtual Private Cloud (VPC)
+- Public subnets
+- Internet Gateway (IGW)
+- EC2 instance
+- RDS PostgreSQL database
+- Elastic Load Balancer (ELB) 
+- S3 bucket for avatars
 
 
 ## Table of Contents
