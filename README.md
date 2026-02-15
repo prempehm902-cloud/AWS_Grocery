@@ -17,7 +17,8 @@ All resources are provisioned and managed using Terraform, enabling repeatable, 
 ---
 ## Architecture Diagram
 
-[![Infrastructure](https://github.com/user-attachments/assets/304eabfd-3cb9-4876-8f4d-30ca4071edf2)](https://github.com/prempehm902-cloud/AWS_Grocery/tree/main/infrastructure)
+[![AWS Network Architecture](https://github.com/user-attachments/assets/8ef94db7-1c5a-4f15-8311-a99837670315)](https://github.com/prempehm902-cloud/AWS_Grocery/tree/main/infrastructure)
+
 
 ## Infrastructure diagram Includes:
 
