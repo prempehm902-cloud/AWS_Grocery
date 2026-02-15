@@ -61,6 +61,7 @@ variable "db_instance_class" {
 variable "db_subnet_group_name" {
   description = "Name for RDS subnet group"
   type        = string
+  default     = "my-db-subnet-group-2"
 }
 
 ##############################
@@ -110,3 +111,4 @@ variable "private_az_2" {
   description = "Availability zone for private subnet 2"
   type        = string
 }
+
