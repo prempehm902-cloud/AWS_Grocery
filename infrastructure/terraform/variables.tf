@@ -1,4 +1,4 @@
- AWS region to deploy resources
+# AWS region
 variable "region" {
   description = "AWS region to deploy resources"
   type        = string
@@ -10,7 +10,7 @@ variable "instance_type" {
   type        = string
 }
 
-# EC2 AMI (optional, recommended to avoid hardcoding AMI IDs)
+# EC2 AMI
 variable "ec2_ami" {
   description = "AMI ID for EC2 instance. Use a regional AMI or dynamically look it up"
   type        = string
@@ -35,21 +35,65 @@ variable "db_password" {
   sensitive   = true
 }
 
-# Your public IP to allow SSH access
-variable "my_ip" {
-  description = "Your public IP address allowed for SSH, in CIDR format (e.g., 123.45.67.89/32)"
-  type        = string
-}
-
-# Optional: DB instance class
+# RDS instance class
 variable "db_instance_class" {
   description = "RDS instance class type"
   type        = string
   default     = "db.t3.micro"
 }
 
-# Optional: SNS email for alarms
+# Your public IP for SSH
+variable "my_ip" {
+  description = "Your public IP address allowed for SSH, in CIDR format (e.g., 123.45.67.89/32)"
+  type        = string
+}
+
+# SNS email for CloudWatch alerts
 variable "sns_email" {
   description = "Email address to receive CloudWatch SNS alerts"
+  type        = string
+}
+
+# VPC CIDR
+variable "vpc_cidr" {
+  description = "CIDR block for the VPC"
+  type        = string
+}
+
+# Public subnet CIDR and AZ
+variable "public_subnet_cidr" {
+  description = "CIDR block for the public subnet"
+  type        = string
+}
+
+variable "public_az" {
+  description = "Availability zone for public subnet"
+  type        = string
+}
+
+# Private subnets CIDR and AZs
+variable "private_subnet_1_cidr" {
+  description = "CIDR block for private subnet 1"
+  type        = string
+}
+
+variable "private_subnet_2_cidr" {
+  description = "CIDR block for private subnet 2"
+  type        = string
+}
+
+variable "private_az_1" {
+  description = "Availability zone for private subnet 1"
+  type        = string
+}
+
+variable "private_az_2" {
+  description = "Availability zone for private subnet 2"
+  type        = string
+}
+
+# RDS subnet group name
+variable "db_subnet_group_name" {
+  description = "Name for RDS subnet group"
   type        = string
 }
