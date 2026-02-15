@@ -45,7 +45,7 @@ resource "aws_route" "internet" {
   gateway_id             = aws_internet_gateway.main.id
 }
 
-# ASSOCIATE WITH SUBNET
+# ASSOCIATE PUBLIC ROUTE
 resource "aws_route_table_association" "public_assoc" {
   subnet_id      = aws_subnet.public.id
   route_table_id = aws_route_table.public.id
@@ -166,7 +166,7 @@ resource "aws_security_group" "rds_sg" {
   }
 }
 
-# DB INSTANCE
+# RDS INSTANCE
 resource "aws_db_instance" "app_db" {
   allocated_storage      = 20
   engine                 = "postgres"
@@ -180,7 +180,7 @@ resource "aws_db_instance" "app_db" {
   db_subnet_group_name   = aws_db_subnet_group.rds_subnet_group.name
 }
 
-# SNS topic with email subscription
+# SNS topic and subscription
 resource "aws_sns_topic" "topic" {
   name = "app_server-CPU_Utilization_alert"
 }
@@ -210,13 +210,12 @@ resource "aws_cloudwatch_metric_alarm" "my_watch" {
   }
 }
 
-# Optional: Dynamic AMI lookup (uncomment if needed)
+# Optional: Dynamic AMI lookup (uncomment to use instead of var.ec2_ami)
 # data "aws_ami" "ubuntu" {
 #   most_recent = true
-#   owners      = ["099720109477"]
+#   owners      = ["099720109477"] # Canonical Ubuntu
 #   filter {
 #     name   = "name"
 #     values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
 #   }
 # }
-
