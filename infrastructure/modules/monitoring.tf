@@ -1,58 +1,25 @@
-# Variables
-variable "instance_id" {
-  description = "EC2 instance ID to monitor"
-  type        = string
+resource "aws_sns_topic" "topic" {
+  name = "app_server-CPU_Utilization_alert"
 }
 
-variable "sns_topic_arn" {
-  description = "SNS topic ARN for alarm notifications"
-  type        = string
+resource "aws_sns_topic_subscription" "email" {
+  topic_arn = aws_sns_topic.topic.arn
+  protocol  = "email"
+  endpoint  = var.sns_email
 }
 
-variable "alarm_name" {
-  description = "Name of the CloudWatch alarm"
-  type        = string
-  default     = "GroceryAlarm"
-}
-
-variable "threshold" {
-  description = "CPU utilization threshold for alarm"
-  type        = number
-  default     = 95
-}
-
-variable "evaluation_periods" {
-  description = "Number of periods to evaluate for alarm"
-  type        = number
-  default     = 1
-}
-
-variable "period" {
-  description = "Period in seconds for each evaluation"
-  type        = number
-  default     = 300
-}
-
-# CloudWatch Alarm
-resource "aws_cloudwatch_metric_alarm" "my_watch" {
-  alarm_name                = var.alarm_name
-  comparison_operator       = "GreaterThanThreshold"
-  evaluation_periods        = var.evaluation_periods
-  metric_name               = "CPUUtilization"
-  namespace                 = "AWS/EC2"
-  period                    = var.period
-  statistic                 = "Average"
-  threshold                 = var.threshold
-  alarm_description         = "This metric monitors EC2 CPU utilization"
-  insufficient_data_actions = []
-  alarm_actions             = [var.sns_topic_arn]
+resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
+  alarm_name          = "terraform-cpu-alarm"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = 2
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/EC2"
+  period              = 120
+  statistic           = "Average"
+  threshold           = 80
+  alarm_actions       = [aws_sns_topic.topic.arn]
 
   dimensions = {
-    InstanceId = var.instance_id
+    InstanceId = aws_instance.app_server.id
   }
-}
-
-# Output
-output "alarm_name" {
-  value = aws_cloudwatch_metric_alarm.my_watch.alarm_name
 }
