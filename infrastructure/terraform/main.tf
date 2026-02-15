@@ -78,11 +78,12 @@ resource "aws_security_group" "app1_sg" {
   description = "Allow SSH, HTTP, and Flask app traffic"
   vpc_id      = aws_vpc.main.id
 
+  # SSH only from your IP
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.my_ip]
   }
 
   ingress {
@@ -167,16 +168,16 @@ resource "aws_security_group" "rds_sg" {
 
 # DB INSTANCE
 resource "aws_db_instance" "app_db" {
-  allocated_storage     = 20
-  engine                = "postgres"
-  engine_version        = "17.6"
-  instance_class        = var.db_instance_class
-  db_name               = var.db_name
-  username              = var.db_username
-  password              = var.db_password
-  skip_final_snapshot   = true
+  allocated_storage      = 20
+  engine                 = "postgres"
+  engine_version         = "17.6"
+  instance_class         = var.db_instance_class
+  db_name                = var.db_name
+  username               = var.db_username
+  password               = var.db_password
+  skip_final_snapshot    = true
   vpc_security_group_ids = [aws_security_group.app1_sg.id]
-  db_subnet_group_name  = aws_db_subnet_group.rds_subnet_group.name
+  db_subnet_group_name   = aws_db_subnet_group.rds_subnet_group.name
 }
 
 # SNS topic with email subscription
@@ -208,3 +209,14 @@ resource "aws_cloudwatch_metric_alarm" "my_watch" {
     InstanceId = aws_instance.app_server.id
   }
 }
+
+# Optional: Dynamic AMI lookup (uncomment if needed)
+# data "aws_ami" "ubuntu" {
+#   most_recent = true
+#   owners      = ["099720109477"]
+#   filter {
+#     name   = "name"
+#     values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+#   }
+# }
+
