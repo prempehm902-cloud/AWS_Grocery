@@ -1,7 +1,8 @@
 # Variables
 variable "ami" {
-  description = "AMI ID for EC2 instance"
+  description = "AMI ID for EC2 instance (optional, overridden by dynamic lookup)"
   type        = string
+  default     = null
 }
 
 variable "instance_type" {
@@ -25,9 +26,23 @@ variable "iam_instance_profile" {
   default     = null
 }
 
+##############################
+# Dynamic Ubuntu AMI Lookup
+##############################
+data "aws_ami" "ubuntu" {
+  most_recent = true
+  owners      = ["099720109477"] # Canonical
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+  }
+}
+
+##############################
 # EC2 Instance
+##############################
 resource "aws_instance" "app_server" {
-  ami                    = var.ami
+  ami                    = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
   subnet_id              = var.subnet_id
   vpc_security_group_ids = [var.security_group_id]
@@ -41,7 +56,9 @@ resource "aws_instance" "app_server" {
   }
 }
 
+##############################
 # Outputs
+##############################
 output "instance_id" {
   value = aws_instance.app_server.id
 }
@@ -53,3 +70,4 @@ output "public_ip" {
 output "private_ip" {
   value = aws_instance.app_server.private_ip
 }
+
