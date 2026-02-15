@@ -1,42 +1,32 @@
-##############################
-# Dynamic Ubuntu AMI Lookup
-##############################
-data "aws_ami" "ubuntu" {
-  most_recent = true
-  owners      = ["099720109477"] # Canonical
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
-  }
+# IAM Role
+resource "aws_iam_role" "grocery_ec2_role" {
+  name = "grocery_ec2_role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = { Service = "ec2.amazonaws.com" }
+    }]
+  })
 }
 
-##############################
+resource "aws_iam_role_policy_attachment" "policy_attach" {
+  role       = aws_iam_role.grocery_ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+}
+
+resource "aws_iam_instance_profile" "ec2_profile" {
+  name = "grocery_ec2_role"
+  role = aws_iam_role.grocery_ec2_role.name
+}
+
 # EC2 Instance
-##############################
 resource "aws_instance" "app_server" {
-  ami                    = data.aws_ami.ubuntu.id
+  ami                    = "ami-015f3aa67b494b27e"
   instance_type          = var.instance_type
-  subnet_id              = var.subnet_id
-  vpc_security_group_ids = [var.security_group_id]
-
-  iam_instance_profile = var.iam_instance_profile
-
-  tags = {
-    Name = "AppServer"
-  }
-}
-
-##############################
-# Outputs
-##############################
-output "instance_id" {
-  value = aws_instance.app_server.id
-}
-
-output "public_ip" {
-  value = aws_instance.app_server.public_ip
-}
-
-output "private_ip" {
-  value = aws_instance.app_server.private_ip
+  iam_instance_profile   = aws_iam_instance_profile.ec2_profile.name
+  vpc_security_group_ids = [aws_security_group.app1_sg.id]
+  subnet_id              = aws_subnet.public.id
 }
