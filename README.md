@@ -4,31 +4,29 @@
 
 AWS Grocery is a cloud-based application deployed on AWS. It features a fully managed and scalable infrastructure, including an EC2 instance, PostgreSQL RDS database, and an S3 bucket for storing user avatars. The application is containerized using Docker, ensuring consistent deployment across environments. A secure network setup is implemented using a VPC, subnets, security groups, and an internet gateway. Terraform is used for automated provisioning and management of all infrastructure components, enabling version-controlled, repeatable deployments.
 
-##The infrastructure includes:
+##The infrastructure includes
 
-- EC2 for application hosting
-- Amazon RDS (PostgreSQL) for persistent data storage
-- Amazon S3 for user avatar storage
-- Docker for application containerization
-- VPC, subnets, security groups, and an Internet Gateway for secure networking
+Our system architecture includes the following components:
 
-All resources are provisioned and managed using Terraform, enabling repeatable, version-controlled deployments across environments.
+- **EC2** for application hosting  
+- **Amazon RDS (PostgreSQL)** for persistent data storage  
+- **Amazon S3** for user avatar storage  
+- **Docker** for application containerization  
+- **VPC, subnets, security groups, and an Internet Gateway (IGW)** for secure networking  
+- **Elastic Load Balancer (ELB)** to distribute incoming traffic  
+
+All resources are provisioned and managed using **Terraform**, enabling repeatable, version-controlled deployments across environments.
+
+### Architecture Diagram
+
+The diagram below provides a visual overview of the infrastructure:
+
+[![AWS Architecture Diagram](https://github.com/user-attachments/assets/a2164bd9-8bbd-4b7f-bc8f-75084fbb86ee =600x400)](https://github.com/user-attachments/assets/a2164bd9-8bbd-4b7f-bc8f-75084fbb86ee)
 
 ---
 ## Architecture Diagram
 
 <img width="1536" height="1024" alt="AWS architecture diagram with VisualParadigm" src="https://github.com/user-attachments/assets/a2164bd9-8bbd-4b7f-bc8f-75084fbb86ee" />
-
-
-## Infrastructure diagram Includes:
-
-- Virtual Private Cloud (VPC)
-- Public subnets
-- Internet Gateway (IGW)
-- EC2 instance
-- RDS PostgreSQL database
-- Elastic Load Balancer (ELB) 
-- S3 bucket for avatars
 
 
 ## Table of Contents
