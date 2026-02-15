@@ -19,7 +19,9 @@ All resources are provisioned and managed using Terraform, enabling repeatable, 
 
 ## AWS Architecture Diagram
 
-<img width="1536" height="1024" alt="AWS Architecture Diagram" src="https://github.com/user-attachments/assets/94140e34-2f4c-4b9a-8568-135f44c81953" />
+## AWS Architecture Diagram (VisualParadigm)
+
+<img width="1536" height="1024" alt="AWS Architecture Diagram" src="https://github.com/user-attachments/assets/76b078c2-3491-4949-8617-95edd8a6af1e" />
 
 
 ## Infrastructure diagram Includes:
