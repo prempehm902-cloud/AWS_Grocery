@@ -16,11 +16,6 @@ variable "instance_type" {
   type        = string
 }
 
-variable "ec2_ami" {
-  description = "AMI ID for EC2 instance. Use a regional AMI or dynamically look it up"
-  type        = string
-}
-
 variable "my_ip" {
   description = "Your public IP address allowed for SSH, in CIDR format (e.g., 123.45.67.89/32)"
   type        = string
