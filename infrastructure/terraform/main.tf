@@ -248,19 +248,20 @@ resource "aws_sns_topic_subscription" "email" {
 # CloudWatch Alarm
 # ---------------------------
 resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
-  alarm_name                = "ec2_cpu_alarm"
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = 2
+  alarm_name                = "GroceryAlarm"
+  comparison_operator       = "GreaterThanThreshold"
+  evaluation_periods        = 1
+  datapoints_to_alarm       = 1
   metric_name               = "CPUUtilization"
   namespace                 = "AWS/EC2"
-  period                    = 120
+  period                    = 300
   statistic                 = "Average"
-  threshold                 = 80
-  alarm_description         = "Monitor EC2 CPU"
-  alarm_actions             = [aws_sns_topic.topic.arn]
+  threshold                 = 95
+  alarm_description         = "No description"
+  treat_missing_data        = "missing"
   insufficient_data_actions = []
 
   dimensions = {
-    InstanceId = aws_instance.app_server.id
+    InstanceId = "i-0bcf602887eccd3ba"
   }
 }
