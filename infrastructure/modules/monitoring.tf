@@ -1,5 +1,9 @@
+# ---------------------------
+# SNS Topic for CloudWatch Alerts
+# ---------------------------
 resource "aws_sns_topic" "topic" {
-  name = "app_server-CPU_Utilization_alert"
+  name = "app_server_cpu_alert"
+  tags = merge(var.common_tags, { Name = "app_server_cpu_alert" })
 }
 
 resource "aws_sns_topic_subscription" "email" {
@@ -8,18 +12,26 @@ resource "aws_sns_topic_subscription" "email" {
   endpoint  = var.sns_email
 }
 
+# ---------------------------
+# CloudWatch CPU Alarm
+# ---------------------------
 resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
-  alarm_name          = "terraform-cpu-alarm"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = 2
-  metric_name         = "CPUUtilization"
-  namespace           = "AWS/EC2"
-  period              = 120
-  statistic           = "Average"
-  threshold           = 80
-  alarm_actions       = [aws_sns_topic.topic.arn]
+  alarm_name                = "GroceryAlarm"
+  comparison_operator       = "GreaterThanThreshold"
+  evaluation_periods        = 1
+  datapoints_to_alarm       = 1
+  metric_name               = "CPUUtilization"
+  namespace                 = "AWS/EC2"
+  period                    = 300
+  statistic                 = "Average"
+  threshold                 = 95
+  alarm_description         = "CPU threshold alarm"
+  treat_missing_data        = "missing"
+  insufficient_data_actions = []
 
   dimensions = {
     InstanceId = aws_instance.app_server.id
   }
+
+  tags = merge(var.common_tags, { Name = "GroceryAlarm" })
 }
