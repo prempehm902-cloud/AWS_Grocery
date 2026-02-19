@@ -23,14 +23,10 @@ All resources are provisioned and managed using **Terraform**, enabling repeatab
 
 The diagram below provides a visual overview of the infrastructure:
 
-
 <img width="1536" height="1024" alt="AWS architecture diagram - eu-central-1" src="https://github.com/user-attachments/assets/bab46473-1dee-40b0-a9d2-6c637f2af78e" />
 
+[![AWS Architecture Diagram](https://github.com/user-attachments/assets/bab46473-1dee-40b0-a9d2-6c637f2af78e =1536x1024)](https://github.com/user-attachments/assets/bab46473-1dee-40b0-a9d2-6c637f2af78e)
 
-
-<img width="1536" height="1024" alt="AWS architecture diagram with VisualParadigm" src="https://github.com/user-attachments/assets/a2164bd9-8bbd-4b7f-bc8f-75084fbb86ee" />
-
-[![AWS Architecture Diagram](https://github.com/user-attachments/assets/a2164bd9-8bbd-4b7f-bc8f-75084fbb86ee =800x533)](https://github.com/user-attachments/assets/a2164bd9-8bbd-4b7f-bc8f-75084fbb86ee)
 
 
 ## Table of Contents
