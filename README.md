@@ -25,6 +25,7 @@ The diagram below provides a visual overview of the infrastructure:
 
 <img width="1536" height="1024" alt="AWS architecture diagram - eu-central-1" src="https://github.com/user-attachments/assets/bab46473-1dee-40b0-a9d2-6c637f2af78e" />
 
+
 [![AWS Architecture Diagram](https://github.com/user-attachments/assets/bab46473-1dee-40b0-a9d2-6c637f2af78e =1536x1024)](https://github.com/user-attachments/assets/bab46473-1dee-40b0-a9d2-6c637f2af78e)
 
 
