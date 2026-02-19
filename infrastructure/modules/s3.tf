@@ -1,41 +1,56 @@
-# variables.tf
+########################################
+# VARIABLES
+########################################
+
 variable "project_name" {
-  description = "Project name used for resource naming"
+  description = "Project name"
   type        = string
-  default     = "grocerymate"
 }
 
 variable "environment" {
-  description = "Deployment environment (e.g., Dev, Staging, Prod)"
+  description = "Deployment environment (dev, staging, prod)"
   type        = string
-  default     = "Dev"
 }
 
 variable "bucket_suffix" {
-  description = "Unique suffix to ensure bucket name uniqueness across AWS"
+  description = "Suffix for the S3 bucket"
   type        = string
+  default     = "avatars"
 }
 
-# locals for consistent naming
+########################################
+# RANDOM SUFFIX (avoids global name conflicts)
+########################################
+
+resource "random_id" "bucket_suffix" {
+  byte_length = 4
+}
+
+########################################
+# LOCALS
+########################################
+
 locals {
-  bucket_name = "${var.project_name}-avatars-${var.bucket_suffix}"
-  common_tags = {
-    Project     = var.project_name
-    Environment = var.environment
-  }
+  bucket_name = "${var.project_name}-${var.bucket_suffix}-${var.environment}-${random_id.bucket_suffix.hex}"
 }
 
-# main.tf
+########################################
+# S3 BUCKET
+########################################
+
 resource "aws_s3_bucket" "avatars" {
   bucket = local.bucket_name
 
-  tags = merge(
-    local.common_tags,
-    {
-      Name = "${var.project_name}-avatars"
-    }
-  )
+  tags = {
+    Name        = local.bucket_name
+    Environment = var.environment
+    Project     = var.project_name
+  }
 }
+
+########################################
+# BLOCK PUBLIC ACCESS
+########################################
 
 resource "aws_s3_bucket_public_access_block" "avatars" {
   bucket = aws_s3_bucket.avatars.id
